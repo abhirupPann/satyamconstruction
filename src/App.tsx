@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom"
 import NavBar from "./components/NavBar"
-import Preloader from "./components/Preloader"
 import Home from "./Pages/Home"
 import Solutions from "./Pages/Solutions"
 import Process from "./Pages/Process"
