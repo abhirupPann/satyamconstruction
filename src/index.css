@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Monarda";
+    src: url(./assets/fonts/Monarda.ttf);
+  }
+  @font-face {
+    font-family: "Poiret One";
+    src: url(./assets/fonts/PoiretOne-Regular.ttf);
+  }
+  @font-face {
+    font-family: "Fjalla One";
+    src: url(./assets/fonts/FjallaOne-Regular.ttf);
+    
+  }
+
