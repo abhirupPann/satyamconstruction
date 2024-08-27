@@ -1,22 +1,16 @@
-import vid from "../assets/video/vid2.mp4"
-import { FlipWords } from "../components/ui/flip-words";
-import emailjs from "@emailjs/browser";
+
 import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { FiChevronsRight } from "react-icons/fi";
-import { IconQuote } from '@tabler/icons-react';
-import { IconArrowDownBar } from '@tabler/icons-react';
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
 
-function Home() {
-
-  const words = ["Planning", "Estimation", "Valuation", "Interiors", "Exteriors", "Promoting"];
- const form = useRef<HTMLFormElement>(null);
+function Bookacall() {
+  const form = useRef<HTMLFormElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  
-  // const vid = "https://drive.google.com/file/d/1KY_mMuJAGvf1QD3JnaU_61xLQF8OTqeG/preview";
+
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -38,51 +32,8 @@ function Home() {
     alert("Form submitted successfully!"); // Basic notification example, you can replace with a toast or other notification.
   };
 
-
-
   return (
-    <div className="font-Poiret tracking-wider">
-      <div  >
-        <div className=" absolute top-[45%] left-[30%] text-white text-5xl z-10">We do<FlipWords words={words} className=" text-5xl  font-Monarda text-uniqueYellow"/> in Burdwan.</div>
-        <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70]' ></div>
-        <div className=" px-[10vw] py-[5vh] w-[90%] bg-uniqueYellow absolute h-[50vh] -bottom-[14.3vh] flex gap-[5vw]">
-          <div className="absolute h-[70%] left-[5vw] border border-l border-uniqueBrown"></div>
-          <div className="w-[90%]">  
-            <p className="  tracking-widest text-uniqueBrown font-bold">Experts Since 1990</p>
-            <p className=" mt-[2vh] text-2xl font-bold">SATYAM CONSTRUCTION  is a comprehensive construction management team and general contractor. With over <span className=" leading-loose tracking-wider px-2 py-1 rounded-md bg-uniqueBrown text-white">30 years of experience</span></p>
-          </div>
-          <div className="absolute h-[70%]  left-[45vw] border border-l border-uniqueBrown"></div>
-          <div className="ml-[10vw]">
-            <div className=" flex gap-[1vw] ">
-              <div className=""><IconQuote stroke={2}/></div>
-              <p className=" text-4xl ">Brick by brick, we make it stick.</p>
-              
-            </div>
-            <p className="mt-[2vh] ml-[3vw] font-semibold tracking-wider">“In the construction world, tools are important. But the greatest tool you have is your mind.” <span className=" leading-loose tracking-wider px-2 py-1 rounded-md bg-uniqueBrown text-white ml-[14vw] mt-[2vh]">– Rebecca Barnessin</span> </p>
-          </div>
-          
-        </div>
-        <div className="absolute h-[94%] left-[94%] top-[20%] border border-l border-uniqueBrown"></div>
-        <div className="absolute text-white right-[0vw] bottom-[19.5vh]"><p className=" -rotate-90 flex items-center gap-[1vw] "> <IconArrowDownBar className=" rotate-90 text-uniqueYellow"/>Scroll Down To Explore</p></div>
-       
-        
-        <video autoPlay loop muted >        
-          <source src={vid} type="video/mp4" />
-        Your browser does not support the video tag.
-        </video>
-        
-      </div>
-      <div className="  relative h-screen tracking-wider">
-      <div className="absolute z-20 h-[94%] left-[5vw] border border-l border-uniqueYellow mt-[20vh]"></div>
-      <div className=" font-bold text-white text-5xl absolute z-20 capitalize top-[20vh] left-[10vw] mt-[10vh] bg-uniqueBrown px-[2vw] py-[2vh]"><span className=" font-normal text-uniqueYellow text-2xl ">We are</span> Passionate Experts, Driven by Excellence.</div>
-      <div className="absolute bg-white px-[5vw] py-[5vh] w-[50vw] h-[50vh] top-[50vh] right-0">
-      <div className="absolute z-20 h-[90%] left-[3vw] border border-l border-uniqueBrown"></div>
-        <h1 className=" my-[5vh] text-3xl font-bold"> We Don’t Just Build Structures. We Craft Legacies.</h1>
-        <p className=" font-bold ">
-        Since 1990, SATYAM CONSTRUCTION has been a trusted name in the construction industry, delivering over 30 years of expertise. As a comprehensive construction management team and general contractor, they specialize in building all types of structures, offering services in planning, estimation, valuation, and interior/exterior design.</p>
-      </div>
-      </div>
-      <div className=" relative mt-[30vh] mx-[6vw] mb-[38vh] font-bold flex flex-col items-center font-Poiret">
+    <div className=" relative mt-[30vh] mx-[6vw] mb-[38vh] font-bold flex flex-col items-center font-Poiret">
       <h1 className=' text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default'>
         Quick Enquiry
       </h1>
@@ -164,8 +115,6 @@ function Home() {
       </div>
     </div>
   );
-    </div>
-  )
 }
 
-export default Home
+export default Bookacall;

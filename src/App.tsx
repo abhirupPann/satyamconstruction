@@ -6,6 +6,7 @@ import Process from "./Pages/Process"
 import Project from "./Pages/Project"
 import AboutUs from "./Pages/AboutUs"
 import Footer from "./components/Footer"
+import Bookacall from "./Pages/Bookacall"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/process" element={<Process/>}/>
         <Route path="/projects" element={<Project/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="bookacall" element={<Bookacall/>}/>
       </Routes>
       <Footer/>
     </div>
