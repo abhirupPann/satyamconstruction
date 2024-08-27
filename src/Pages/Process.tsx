@@ -1,5 +1,7 @@
 
 import vid from "../assets/video/vid1.mp4"
+import { useState } from "react";
+import Preloader from "../components/Preloader";
 const value = [{
   id: 1,
   head: "Goals and vision",
@@ -31,14 +33,32 @@ const value = [{
   des: "From creating a punch list to walking the entire project, we fine-tune every detail so your site is in tip-top shape. You receive a closeout book with as-builts, warranties, and operating manuals.",
   img: "https://www.maman-corp.com/assets/img/process-step-6.jpg"
 }]
+
+
 function Process() {
+
+
+  const [isLoading,setIsLoading] = useState(false);
+
+ 
+  const handleCanPlay = () => {
+    setIsLoading(false); // Hide preloader when video is ready
+  };
+  
+  // Function to handle when video starts loading
+  const handleLoadStart = () => {
+    setIsLoading(false); // Show preloader when video starts loading
+  };
   return (
-    <div className=" relative font-Poiret">
+    <div>
+      { isLoading? <Preloader/>:
+      <div className=" relative font-Poiret">
       
       <div className="  tracking-wider relative h-screen">
         <div className=" absolute">
         <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70]' ></div>
-        <video src={vid} autoPlay loop muted className=" "></video>
+        <video src={vid} autoPlay loop muted onCanPlay={handleCanPlay} 
+        onLoadStart={handleLoadStart}></video>
         
         </div>
         <div className="absolute z-20 h-[94%] left-[5vw] border border-l border-uniqueYellow mt-[20vh]"></div>
@@ -72,6 +92,8 @@ function Process() {
      
       </div>
 
+    </div>}
+    
     </div>
   )
 }

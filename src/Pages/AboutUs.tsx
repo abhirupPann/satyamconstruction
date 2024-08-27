@@ -2,6 +2,8 @@ import vid from "../assets/video/vid1.mp4"
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
+import Preloader from "../components/Preloader";
+import { useState } from "react";
 const value = [{
   id: 1,
   head: "SANDIP KUMAR GHOSH",
@@ -21,13 +23,30 @@ const value = [{
   des: "B.E.(CIVIL), MBA(H.R.),A.M.(I.E.I), ENLISTED STRUCTURAL ENGINEER AT BURDWAN DEVELOPMENT AUTHORITY (BDA) and ENLISTED LICENSE BUILDING SURVAYOR OF BURDWAN MUNICIPALITY",
   img: "https://www.maman-corp.com/assets/img/process-step-6.jpg"
 }]
+
+
+
 function AboutUs() {
+  const [isLoading,setIsLoading] = useState(false);
+  
+
+  const handleCanPlay = () => {
+    setIsLoading(false); // Hide preloader when video is ready
+  };
+  
+  // Function to handle when video starts loading
+  const handleLoadStart = () => {
+    setIsLoading(false); // Show preloader when video starts loading
+  };
   return (
+    <div>
+    {isLoading? (<Preloader/>) :(
     <div className=" relative font-Poiret ">
       <div className="  relative h-screen tracking-wider">
         <div className=" absolute z-0">
         <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70] z-20' ></div>
-        <video src={vid} autoPlay loop muted className=" "></video>
+        <video src={vid} autoPlay loop muted onCanPlay={handleCanPlay} 
+        onLoadStart={handleLoadStart} ></video>
         
         </div>
 
@@ -92,6 +111,8 @@ function AboutUs() {
       </div>
       
     </div>
+  )}
+  </div>
   )
 }
 

@@ -1,4 +1,6 @@
 import vid from "../assets/video/vid4.mp4"
+import { useState } from "react";
+import Preloader from "../components/Preloader";
 const value = [{
   id: 1,
   head: "LILABATI APARTMENT",
@@ -31,13 +33,27 @@ const value = [{
   img: "https://www.maman-corp.com/assets/img/process-step-6.jpg"
 }]
 function Project() {
+  const [isLoading,setIsLoading] = useState(false);
+
+
+  const handleCanPlay = () => {
+    setIsLoading(false); // Hide preloader when video is ready
+  };
+  
+  // Function to handle when video starts loading
+  const handleLoadStart = () => {
+    setIsLoading(false); // Show preloader when video starts loading
+  };
   return (
+  <div>{
+    isLoading ? <Preloader/> : 
     <div className="relative font-Poiret">
       <div className="  relative tracking-wider h-screen">
         <div className=" absolute z-0">
         <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70] z-20' ></div>
-        <video  autoPlay loop muted className=" ">
-        <source src={vid} type="video/mp4"/></video>
+        <video  autoPlay loop muted onCanPlay={handleCanPlay} 
+        onLoadStart={handleLoadStart}>
+        <source src={vid} type="video/mp4" /></video>
         
         </div>
 
@@ -71,6 +87,8 @@ function Project() {
      
       </div>
     </div>
+    }</div>
+    
   )
 }
 

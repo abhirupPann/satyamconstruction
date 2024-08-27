@@ -8,11 +8,27 @@ import { IconArrowDownBar } from '@tabler/icons-react';
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
+import Preloader from "../components/Preloader";
 
 function Home() {
+  
+  const [isLoading,setIsLoading] = useState(false);
+
+
+  const handleCanPlay = () => {
+    setIsLoading(false);
+    console.log(" false") // Hide preloader when video is ready
+  };
+  
+  // Function to handle when video starts loading
+  const handleLoadStart = () => {
+    setIsLoading(false);
+    console.log("object") // Show preloader when video starts loading
+  };
+
 
   const words = ["Planning", "Estimation", "Valuation", "Interiors", "Exteriors", "Promoting"];
- const form = useRef<HTMLFormElement>(null);
+  const form = useRef<HTMLFormElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   
@@ -41,7 +57,8 @@ function Home() {
 
 
   return (
-    <div className="font-Poiret tracking-wider">
+    <div>{ isLoading ? (<Preloader/>):(
+      <div className="font-Poiret tracking-wider">
       <div  >
         <div className=" absolute top-[45%] left-[30%] text-white text-5xl z-10">We do<FlipWords words={words} className=" text-5xl  font-Monarda text-uniqueYellow"/> in Burdwan.</div>
         <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70]' ></div>
@@ -66,9 +83,9 @@ function Home() {
         <div className="absolute text-white right-[0vw] bottom-[19.5vh]"><p className=" -rotate-90 flex items-center gap-[1vw] "> <IconArrowDownBar className=" rotate-90 text-uniqueYellow"/>Scroll Down To Explore</p></div>
        
         
-        <video autoPlay loop muted >        
-          <source src={vid} type="video/mp4" />
-        Your browser does not support the video tag.
+        <video className="video" src={vid} autoPlay  loop muted onLoadedData={handleCanPlay} 
+        onLoadStart={handleLoadStart}>        
+    
         </video>
         
       </div>
@@ -163,7 +180,9 @@ function Home() {
       <div className='my-[5vh]'><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.505052243271!2d87.855727!3d23.2247016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8492465c7b385%3A0x97ec3993ec1b9bd0!2sSATYAM%20CONSTRUCTION!5e0!3m2!1sen!2sin!4v1724657146582!5m2!1sen!2sin" width="600" height="450" loading="lazy" ></iframe></div>
       </div>
     </div>
-  );
+    </div>
+    )}
+    
     </div>
   )
 }
