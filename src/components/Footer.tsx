@@ -27,7 +27,7 @@ export default function Footer() {
       <h1 className=' font-Monarda  text-base sm:text-2xl font-medium underline underline-offset-[1vh] sm:underline-offset-[2vh] decoration-black text-uniqueBrown cursor-default'>Quick Links</h1>
          <ul className='flex flex-col gap-3'>
             <Link to="/"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>Home</li></Link>
-            <Link to="/solutions"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>Solutions</li></Link>
+            <Link to="/solutions"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>Services</li></Link>
             <Link to="/process"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>Process</li></Link>
             <Link to="/projects"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>Projects</li></Link>
             <Link to="/aboutus"><li className='flex items-center gap-2 cursor-pointer hover:underline hover:underline-offset-8'>About Us</li></Link>

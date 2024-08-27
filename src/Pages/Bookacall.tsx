@@ -5,6 +5,7 @@ import { FiChevronsRight } from "react-icons/fi";
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
+import toast from "react-hot-toast";
 
 function Bookacall() {
   const form = useRef<HTMLFormElement>(null);
@@ -15,25 +16,22 @@ function Bookacall() {
     e.preventDefault();
     
     emailjs
-      .sendForm('service_bxh5zsu', 'template_zwrj105', form.current!, {
+      .sendForm('service_bxh5zsu', 'template_wten5lu', form.current!, {
         publicKey: 'vFMU0Sp9Nc7jdm96k',
       })
       .then(
         () => {
-          console.log('SUCCESS!');
+          toast.success('Email sent successfully!');
         },
         (error) => {
-          console.log('FAILED...', error.text);
+          toast.error('FAILED...', error.text);
         }
       );
   };
 
-  const notify = () => {
-    alert("Form submitted successfully!"); // Basic notification example, you can replace with a toast or other notification.
-  };
 
   return (
-    <div className=" relative mt-[30vh] mx-[6vw] mb-[38vh] font-bold flex flex-col items-center font-Poiret">
+    <div className=" relative mt-[30vh] mx-[6vw] font-bold flex flex-col items-center font-Poiret">
       <h1 className=' text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default'>
         Quick Enquiry
       </h1>
@@ -57,25 +55,24 @@ function Bookacall() {
             type="text" 
             name="from_name" 
             placeholder='Your Name' 
-            className=' bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+            className=' bg-yellow-500 text-base placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
             onChange={(e) => setName(e.target.value)}
           />
           <input 
             type="email" 
             name="from_email" 
             placeholder='Your Email' 
-            className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+            className='bg-yellow-500 text-base placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
             onChange={(e) => setEmail(e.target.value)}
           />
           <textarea 
             name="message" 
             placeholder='Message' 
-            className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[20vh] rounded-md px-[2vw] py-[2vh]'
+            className='bg-yellow-500 text-base placeholder:text-[#6e3636] h-[20vh] rounded-md px-[2vw] py-[2vh]'
           />
           <button 
             type="submit" 
             className='w-full border-2 px-[2vw] py-[4vh] h-[7vh] flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
-            onClick={notify}
             disabled={!name || !email}
           >
             <div className="text-2xl">Submit</div>
@@ -85,7 +82,7 @@ function Bookacall() {
           </button>
         </form>
       </div>
-      <div className=" relative  mt-[10vh] mb-[38vh] flex flex-col items-center">
+      <div className=" relative  mt-[10vh] mb-[10vh] flex flex-col items-center">
       <h1 className='  text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Customer Support</h1>
       <div className='flex flex-col md:flex-row gap-5 '>
       <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>

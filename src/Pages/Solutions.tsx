@@ -1,6 +1,7 @@
 import vid from "../assets/video/vid3.mp4"
 import { useState } from "react";
 import Preloader from "../components/Preloader";
+import { useEffect } from "react";
 const value = [{
   id: 1,
   head: "Plan, Estimate and Valuation.",
@@ -18,18 +19,13 @@ const value = [{
   img: "https://www.maman-corp.com/assets/img/process-step-6.jpg"
 }]
 function Solutions() {
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading]  = useState(true);
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-
-  const handleCanPlay = () => {
-    setIsLoading(false);
-    console.log("object") // Hide preloader when video is ready
-  };
-  
-  // Function to handle when video starts loading
-  const handleLoadStart = () => {
-    setIsLoading(false); // Show preloader when video starts loading
-  };
+  },[])
   return (
     <div>
       {isLoading ? <Preloader/> : 
@@ -37,8 +33,7 @@ function Solutions() {
        <div className="  relative h-screen tracking-wider ">
          <div className=" absolute z-0">
          <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70] z-20' ></div>
-         <video src={vid} autoPlay loop muted onCanPlay={handleCanPlay} 
-         onLoadStart={handleLoadStart}></video>
+         <video src={vid} autoPlay loop muted ></video>
          
          </div>
  

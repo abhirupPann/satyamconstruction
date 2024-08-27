@@ -4,6 +4,7 @@ import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
 import Preloader from "../components/Preloader";
 import { useState } from "react";
+import { useEffect } from "react";
 const value = [{
   id: 1,
   head: "SANDIP KUMAR GHOSH",
@@ -27,17 +28,13 @@ const value = [{
 
 
 function AboutUs() {
-  const [isLoading,setIsLoading] = useState(false);
-  
+  const [isLoading, setIsLoading]  = useState(true);
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-  const handleCanPlay = () => {
-    setIsLoading(false); // Hide preloader when video is ready
-  };
-  
-  // Function to handle when video starts loading
-  const handleLoadStart = () => {
-    setIsLoading(false); // Show preloader when video starts loading
-  };
+  },[])
   return (
     <div>
     {isLoading? (<Preloader/>) :(
@@ -45,8 +42,7 @@ function AboutUs() {
       <div className="  relative h-screen tracking-wider">
         <div className=" absolute z-0">
         <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70] z-20' ></div>
-        <video src={vid} autoPlay loop muted onCanPlay={handleCanPlay} 
-        onLoadStart={handleLoadStart} ></video>
+        <video src={vid} autoPlay loop muted  ></video>
         
         </div>
 

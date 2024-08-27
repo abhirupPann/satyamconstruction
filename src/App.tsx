@@ -9,6 +9,7 @@ import Footer from "./components/Footer"
 import Bookacall from "./Pages/Bookacall"
 import Preloader from "./components/Preloader"
 import { useEffect, useState } from "react"
+import { Toaster } from "react-hot-toast"
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   
   return (
     <div>
+      <Toaster/>
       {isLoading? (<Preloader/>) :
             (<div>
             <NavBar/>

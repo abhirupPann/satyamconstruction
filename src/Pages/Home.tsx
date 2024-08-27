@@ -9,22 +9,19 @@ import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
 import Preloader from "../components/Preloader";
-
+import { useEffect } from "react";
 function Home() {
   
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading,setIsLoading] = useState(true);
 
 
-  const handleCanPlay = () => {
-    setIsLoading(false);
-    console.log(" false") // Hide preloader when video is ready
-  };
   
-  // Function to handle when video starts loading
-  const handleLoadStart = () => {
-    setIsLoading(false);
-    console.log("object") // Show preloader when video starts loading
-  };
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+  },[])
 
 
   const words = ["Planning", "Estimation", "Valuation", "Interiors", "Exteriors", "Promoting"];
@@ -83,8 +80,7 @@ function Home() {
         <div className="absolute text-white right-[0vw] bottom-[19.5vh]"><p className=" -rotate-90 flex items-center gap-[1vw] "> <IconArrowDownBar className=" rotate-90 text-uniqueYellow"/>Scroll Down To Explore</p></div>
        
         
-        <video className="video" src={vid} autoPlay  loop muted onLoadedData={handleCanPlay} 
-        onLoadStart={handleLoadStart}>        
+        <video className="video" src={vid} autoPlay  loop muted>        
     
         </video>
         
@@ -99,7 +95,7 @@ function Home() {
         Since 1990, SATYAM CONSTRUCTION has been a trusted name in the construction industry, delivering over 30 years of expertise. As a comprehensive construction management team and general contractor, they specialize in building all types of structures, offering services in planning, estimation, valuation, and interior/exterior design.</p>
       </div>
       </div>
-      <div className=" relative mt-[30vh] mx-[6vw] mb-[38vh] font-bold flex flex-col items-center font-Poiret">
+      <div className=" relative mt-[30vh] mx-[6vw] mb-[10vh] font-bold flex flex-col items-center font-Poiret">
       <h1 className=' text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default'>
         Quick Enquiry
       </h1>
@@ -151,7 +147,7 @@ function Home() {
           </button>
         </form>
       </div>
-      <div className=" relative  mt-[10vh] mb-[38vh] flex flex-col items-center">
+      <div className=" relative  my-[10vh] flex flex-col items-center">
       <h1 className='  text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Customer Support</h1>
       <div className='flex flex-col md:flex-row gap-5 '>
       <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
@@ -177,7 +173,7 @@ function Home() {
       </div>
       </div>
       <h1 className='  text-2xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Google Maps</h1>
-      <div className='my-[5vh]'><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.505052243271!2d87.855727!3d23.2247016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8492465c7b385%3A0x97ec3993ec1b9bd0!2sSATYAM%20CONSTRUCTION!5e0!3m2!1sen!2sin!4v1724657146582!5m2!1sen!2sin" width="600" height="450" loading="lazy" ></iframe></div>
+      <div className='mt-[5vh]'><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.505052243271!2d87.855727!3d23.2247016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8492465c7b385%3A0x97ec3993ec1b9bd0!2sSATYAM%20CONSTRUCTION!5e0!3m2!1sen!2sin!4v1724657146582!5m2!1sen!2sin" width="600" height="450" loading="lazy" ></iframe></div>
       </div>
     </div>
     </div>
