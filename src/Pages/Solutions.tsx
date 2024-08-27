@@ -23,7 +23,7 @@ function Solutions() {
   useEffect(()=>{
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
 
   },[])
   return (
