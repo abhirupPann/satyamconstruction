@@ -1,7 +1,5 @@
 import vid from "../assets/video/vid3.mp4"
-import { useState } from "react";
-import Preloader from "../components/Preloader";
-import { useEffect } from "react";
+
 const value = [{
   id: 1,
   head: "Plan, Estimate and Valuation.",
@@ -19,16 +17,9 @@ const value = [{
   img: "https://www.maman-corp.com/assets/img/process-step-6.jpg"
 }]
 function Solutions() {
-  const [isLoading, setIsLoading]  = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-  },[])
   return (
     <div>
-      {isLoading ? <Preloader/> : 
+     
        <div className="relative font-Poiret">
        <div className="  relative h-screen tracking-wider ">
          <div className=" absolute z-0">
@@ -67,7 +58,7 @@ function Solutions() {
       
        </div>
    
-     </div>}
+     </div>
    
     </div>
   )

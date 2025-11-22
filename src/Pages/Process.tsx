@@ -1,8 +1,5 @@
 
 import vid from "../assets/video/vid1.mp4"
-import { useState } from "react";
-import Preloader from "../components/Preloader";
-import { useEffect } from "react";
 const value = [{
   id: 1,
   head: "Goals and vision",
@@ -39,16 +36,9 @@ const value = [{
 function Process() {
 
 
-  const [isLoading, setIsLoading]  = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-  },[])
   return (
     <div>
-      { isLoading? <Preloader/>:
+      
       <div className=" relative font-Poiret">
       
       <div className="  tracking-wider relative h-screen">
@@ -88,7 +78,7 @@ function Process() {
      
       </div>
 
-    </div>}
+    </div>
     
     </div>
   )

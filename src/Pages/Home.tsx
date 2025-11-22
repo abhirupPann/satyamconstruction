@@ -8,20 +8,9 @@ import { IconArrowDownBar } from '@tabler/icons-react';
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
-import Preloader from "../components/Preloader";
-import { useEffect } from "react";
+
 function Home() {
   
-  const [isLoading,setIsLoading] = useState(true);
-
-
-  
-  useEffect(()=>{
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-  },[])
 
 
   const words = ["Planning", "Estimation", "Valuation", "Interiors", "Exteriors", "Promoting"];
@@ -54,7 +43,7 @@ function Home() {
 
 
   return (
-    <div>{ isLoading ? (<Preloader/>):(
+    <div>
       <div className="font-Poiret tracking-wider">
       <div  >
         <div className=" absolute top-[45%] left-[30%] text-white text-5xl z-10">We do<FlipWords words={words} className=" text-5xl  font-Monarda text-uniqueYellow"/> in Burdwan.</div>
@@ -177,7 +166,7 @@ function Home() {
       </div>
     </div>
     </div>
-    )}
+    
     
     </div>
   )

@@ -2,9 +2,7 @@ import vid from "../assets/video/vid1.mp4"
 import { IconPhone } from '@tabler/icons-react';
 import { IconMail } from '@tabler/icons-react';
 import { IconMapPin } from '@tabler/icons-react';
-import Preloader from "../components/Preloader";
-import { useState } from "react";
-import { useEffect } from "react";
+
 const value = [{
   id: 1,
   head: "SANDIP KUMAR GHOSH",
@@ -28,16 +26,10 @@ const value = [{
 
 
 function AboutUs() {
-  const [isLoading, setIsLoading]  = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-  },[])
+  
   return (
     <div>
-    {isLoading? (<Preloader/>) :(
+    
     <div className=" relative font-Poiret ">
       <div className="  relative h-screen tracking-wider">
         <div className=" absolute z-0">
@@ -107,7 +99,7 @@ function AboutUs() {
       </div>
       
     </div>
-  )}
+
   </div>
   )
 }
