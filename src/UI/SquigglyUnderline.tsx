@@ -8,7 +8,7 @@ export const SquigglyUnderline = () => {
   const [selectedLink, setSelectedLink] = useState(name);
 
   return (
-    <div className="flex gap-16">
+    <div className="flex gap-8 md:gap-16">
       {navigation.map((item) => {
         const isSelected = item.name === selectedLink;
         return (
