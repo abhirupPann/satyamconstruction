@@ -43,9 +43,9 @@ function Bookacall() {
         <form
           ref={form}
           onSubmit={sendEmail}
-          className='letscolab flex flex-col gap-4  rounded-bl-3xl rounded-br-3xl bg-uniqueYellow h-[65vh] justify-center pl-[40vw] pr-[10vw] shadow-md border-black border-2 relative'
+          className='letscolab flex flex-col gap-4 rounded-bl-3xl rounded-br-3xl bg-uniqueYellow min-h-[65vh] h-auto py-8 px-5 md:py-0 md:pl-[40vw] md:pr-[10vw] shadow-md border-black border-2 relative'
         >
-          <div className="text absolute left-5 md:left-20 w-[30vw] text-sm md:text-3xl leading-5 md:leading-[7vh]">
+          <div className="relative mb-4 w-full text-sm leading-6 md:absolute md:mb-0 md:left-20 md:w-[30vw] md:text-3xl md:leading-[7vh]">
             <span className='bg-white p-[0.3rem]'>
               Let's get this conversation started!
             </span> 
@@ -55,24 +55,24 @@ function Bookacall() {
             type="text" 
             name="from_name" 
             placeholder='Your Name' 
-            className=' bg-yellow-500 text-base placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+            className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl placeholder:text-[#6e3636] min-h-12 rounded-md px-4 py-3'
             onChange={(e) => setName(e.target.value)}
           />
           <input 
             type="email" 
             name="from_email" 
             placeholder='Your Email' 
-            className='bg-yellow-500 text-base placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+            className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl placeholder:text-[#6e3636] min-h-12 rounded-md px-4 py-3'
             onChange={(e) => setEmail(e.target.value)}
           />
           <textarea 
             name="message" 
             placeholder='Message' 
-            className='bg-yellow-500 text-base placeholder:text-[#6e3636] h-[20vh] rounded-md px-[2vw] py-[2vh]'
+            className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl placeholder:text-[#6e3636] min-h-32 rounded-md px-4 py-3'
           />
           <button 
             type="submit" 
-            className='w-full border-2 px-[2vw] py-[4vh] h-[7vh] flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
+            className='w-full min-h-12 border-2 px-4 py-3 flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
             disabled={!name || !email}
           >
             <div className="text-2xl">Submit</div>
