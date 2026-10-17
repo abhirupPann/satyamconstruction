@@ -3,16 +3,53 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Monarda";
-    src: url(./assets/fonts/Monarda.ttf);
-  }
-  @font-face {
-    font-family: "Poiret One";
-    src: url(./assets/fonts/PoiretOne-Regular.ttf);
-  }
-  @font-face {
-    font-family: "Fjalla One";
-    src: url(./assets/fonts/FjallaOne-Regular.ttf);
-    
-  }
+  font-family: "Monarda";
+  src: url(./assets/fonts/Monarda.ttf);
+}
+@font-face {
+  font-family: "Poiret One";
+  src: url(./assets/fonts/PoiretOne-Regular.ttf);
+}
+@font-face {
+  font-family: "Fjalla One";
+  src: url(./assets/fonts/FjallaOne-Regular.ttf);
+}
 
+/* Shared layout defaults; component-specific design and Tailwind styling remain in control. */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  width: 100%;
+  min-width: 320px;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: clip;
+}
+#root {
+  width: 100%;
+  min-width: 0;
+}
+img, picture, svg, canvas, video, iframe {
+  max-width: 100%;
+}
+input, textarea, select, button {
+  font: inherit;
+}
+input, textarea, select {
+  min-width: 0;
+}
+video {
+  display: block;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
