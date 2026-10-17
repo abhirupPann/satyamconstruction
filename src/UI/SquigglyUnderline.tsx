@@ -1,56 +1,45 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import {  NavLink } from "react-router-dom";
-const navigation = [{ name: "Home", link:"/" }, { name: "Services", link:"/solutions" }, { name: "Process", link:"/process" },{ name: "Projects", link:"/projects" },{ name: "About Us", link:"/aboutus" }];
+import { NavLink } from "react-router-dom";
 
-export const SquigglyUnderline = () => {
-  const name = localStorage.getItem('Name') ? localStorage.getItem('Name') : 'Home' ;
-  const [selectedLink, setSelectedLink] = useState(name);
+const navigation = [
+  { name: "Home", link: "/" },
+  { name: "Services", link: "/solutions" },
+  { name: "Process", link: "/process" },
+  { name: "Projects", link: "/projects" },
+  { name: "About Us", link: "/aboutus" },
+];
 
-  return (
-    <div className="flex gap-8 md:gap-16">
-      {navigation.map((item) => {
-        const isSelected = item.name === selectedLink;
-        return (
-          <NavLink to={item.link}
-            key={item.name}
-            className={`relative text-sm leading-6 no-underline ${
-              isSelected ? "font-semibold text-gray-200" : "text-uniqueYellow"
-            }`}
-            onClick={(isActive) =>{
-              isActive ? setSelectedLink(item.name): "";
-              localStorage.setItem('Name', item.name);
-            }}
-          >
+export const SquigglyUnderline = () => (
+  <nav aria-label="Main navigation" className="flex gap-5 lg:gap-10">
+    {navigation.map((item) => (
+      <NavLink
+        to={item.link}
+        key={item.name}
+        end={item.link === "/"}
+        className={({ isActive }) =>
+          `relative whitespace-nowrap text-sm leading-6 no-underline ${
+            isActive ? "font-semibold text-gray-100" : "text-uniqueYellow"
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
             {item.name}
-            {isSelected ? (
-              <motion.div className="absolute -bottom-[1px] left-0 right-0 h-[1px]">
+            {isActive && (
+              <motion.div className="absolute -bottom-1 left-0 right-0 h-2" aria-hidden="true">
                 <svg width="37" height="8" viewBox="0 0 37 8" fill="none">
                   <motion.path
-                    d="M1 5.39971C7.48565 -1.08593 6.44837 -0.12827 8.33643 6.47992C8.34809 6.52075 11.6019 2.72875 12.3422 2.33912C13.8991 1.5197 16.6594 2.96924 18.3734 2.96924C21.665 2.96924 23.1972 1.69759 26.745 2.78921C29.7551 3.71539 32.6954 3.7794 35.8368 3.7794"
-                    stroke="yellow"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    initial={{
-                      strokeDasharray: 84.20591735839844,
-                      strokeDashoffset: 84.20591735839844,
-                    }}
-                    animate={{
-                      strokeDashoffset: 0,
-                    }}
-                    transition={{
-                      duration: 1,
-                    }}
+                    d="M1 5.4C7.49-1.09 6.45-.13 8.34 6.48c.01.04 3.27-3.75 4-4.14 1.56-.82 4.32.63 6.03.63 3.29 0 4.82-1.27 8.37-.18 3.01.93 5.95.99 9.1.99"
+                    stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.6 }}
                   />
                 </svg>
               </motion.div>
-            ) : null}
-          </NavLink>
-        );
-      })}
-    </div>
-  );
-};
-
-
+            )}
+          </>
+        )}
+      </NavLink>
+    ))}
+  </nav>
+);
