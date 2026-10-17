@@ -2,6 +2,7 @@ import vid from "../assets/video/vid2.mp4";
 import img from "../assets/satyamConstructionprimary.png";
 import { FlipWords } from "../components/ui/flip-words";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 import { useRef, useState } from "react";
 import { FiChevronsRight } from "react-icons/fi";
 import { IconQuote } from '@tabler/icons-react';
@@ -18,27 +19,28 @@ function Home() {
   const form = useRef<HTMLFormElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   // const vid = "https://drive.google.com/file/d/1KY_mMuJAGvf1QD3JnaU_61xLQF8OTqeG/preview";
-  const sendEmail = (e: React.FormEvent) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!form.current || isSending) return;
 
-    emailjs
-      .sendForm('service_bxh5zsu', 'template_zwrj105', form.current!, {
-        publicKey: 'vFMU0Sp9Nc7jdm96k',
-      })
-      .then(
-        () => {
-          console.log('SUCCESS!');
-        },
-        (error) => {
-          console.log('FAILED...', error.text);
-        }
-      );
-  };
-
-  const notify = () => {
-    alert("Form submitted successfully!"); // Basic notification example, you can replace with a toast or other notification.
+    setIsSending(true);
+    try {
+      await emailjs.sendForm("service_bxh5zsu", "template_zwrj105", form.current, {
+        publicKey: "vFMU0Sp9Nc7jdm96k",
+      });
+      toast.success("Your enquiry was sent successfully.");
+      form.current.reset();
+      setName("");
+      setEmail("");
+    } catch (error) {
+      console.error("Enquiry submission failed:", error);
+      toast.error("We couldn't send your enquiry. Please try again or contact us by phone.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
 
@@ -70,7 +72,7 @@ function Home() {
           <div className="absolute text-uniqueBrown font-bold right-4 bottom-[18vh]"><p className=" -rotate-90 flex items-center gap-[1vw] "> <IconArrowDownBar className=" rotate-90 text-uniqueBrown" />Scroll Down To Explore</p></div>
 
 
-          <video className="video -mt-40 md:mt-0" src={vid} autoPlay loop muted >
+          <video className="video -mt-40 md:mt-0" src={vid} loop muted playsInline preload="none" aria-hidden="true">
 
           </video>
 
@@ -116,6 +118,8 @@ function Home() {
                 placeholder='Your Name'
                 className=' bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
                 onChange={(e) => setName(e.target.value)}
+                required
+                autoComplete="name"
               />
               <input
                 type="email"
@@ -123,19 +127,21 @@ function Home() {
                 placeholder='Your Email'
                 className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
                 onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
               />
               <textarea
                 name="message"
                 placeholder='Message'
+                required
                 className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[20vh] rounded-md px-[2vw] py-[2vh]'
               />
               <button
                 type="submit"
                 className='w-full border-2 px-[2vw] py-[4vh] h-[7vh] flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
-                onClick={notify}
-                disabled={!name || !email}
+                disabled={!name || !email || isSending}
               >
-                <div className="text-2xl">Submit</div>
+                <div className="text-2xl">{isSending ? "Sending..." : "Submit"}</div>
                 <div className='text-2xl'>
                   <FiChevronsRight />
                 </div>
