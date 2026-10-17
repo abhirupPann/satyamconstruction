@@ -72,7 +72,7 @@ function AboutUs() {
       <div className=" relative  mt-[10vh] mb-[38vh] flex flex-col items-center">
       <h1 className='  text-3xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Customer Support</h1>
       <div className='flex flex-col md:flex-row gap-5 '>
-      <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+      <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
         <IconPhone className='text-base sm:text-3xl'/>
       
         <h1 className='text-base sm:text-3xl'>Phone</h1>
@@ -80,7 +80,7 @@ function AboutUs() {
     
 
       </div>
-      <div className=' flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+      <div className=' flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
         <IconMail className='text-base sm:text-3xl'/>
     
         <h1 className='text-base sm:text-3xl'>Email</h1>
@@ -88,7 +88,7 @@ function AboutUs() {
    
 
       </div>
-      <div className=' flex flex-col justify-center gap-4  items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+      <div className=' flex flex-col justify-center gap-4  items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
         <IconMapPin className='text-base sm:text-3xl'/>
         <h1 className='text-base sm:text-3xl'>Address</h1>
         <p className='bg-white px-4 font-bold w-full text-center'>SH 8, Jagat Berh, Barabalidanga, Bardhaman, West Bengal 713103</p>
