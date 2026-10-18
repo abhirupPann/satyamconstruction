@@ -2,6 +2,7 @@ import vid from "../assets/video/vid2.mp4";
 import img from "../assets/satyamConstructionprimary.png";
 import { FlipWords } from "../components/ui/flip-words";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 import { useRef, useState } from "react";
 import { FiChevronsRight } from "react-icons/fi";
 import { IconQuote } from '@tabler/icons-react';
@@ -18,27 +19,28 @@ function Home() {
   const form = useRef<HTMLFormElement>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   // const vid = "https://drive.google.com/file/d/1KY_mMuJAGvf1QD3JnaU_61xLQF8OTqeG/preview";
-  const sendEmail = (e: React.FormEvent) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!form.current || isSending) return;
 
-    emailjs
-      .sendForm('service_bxh5zsu', 'template_zwrj105', form.current!, {
-        publicKey: 'vFMU0Sp9Nc7jdm96k',
-      })
-      .then(
-        () => {
-          console.log('SUCCESS!');
-        },
-        (error) => {
-          console.log('FAILED...', error.text);
-        }
-      );
-  };
-
-  const notify = () => {
-    alert("Form submitted successfully!"); // Basic notification example, you can replace with a toast or other notification.
+    setIsSending(true);
+    try {
+      await emailjs.sendForm("service_bxh5zsu", "template_zwrj105", form.current, {
+        publicKey: "vFMU0Sp9Nc7jdm96k",
+      });
+      toast.success("Your enquiry was sent successfully.");
+      form.current.reset();
+      setName("");
+      setEmail("");
+    } catch (error) {
+      console.error("Enquiry submission failed:", error);
+      toast.error("We couldn't send your enquiry. Please try again or contact us by phone.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
 
@@ -46,10 +48,10 @@ function Home() {
   return (
     <div>
       <div className="font-Poiret tracking-wider">
-        <div className="h-screen">
-          <div className=" absolute top-[45%] left-[30%] text-white text-5xl z-10">We do<FlipWords words={words} className=" text-5xl  font-Monarda text-uniqueYellow" /> in Burdwan.</div>
+        <div className="relative min-h-[640px] h-screen overflow-hidden">
+          <div className="absolute left-1/2 top-[40%] z-10 w-[92%] -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-white sm:text-4xl lg:left-[30%] lg:w-auto lg:translate-x-0 lg:text-left lg:text-5xl">We do<FlipWords words={words} className=" text-5xl  font-Monarda text-uniqueYellow" /> in Burdwan.</div>
           <div className=' class w-[100%] absolute h-[114vh] bg-black/[.70]' ></div>
-          <div className=" px-[10vw] py-[5vh] w-[100%] bg-uniqueYellow absolute h-[50vh] -bottom-[14.3vh] flex flex-col sm:flex-row gap-[vw]">
+          <div className="px-6 py-6 sm:px-[10vw] sm:py-[5vh] w-full bg-uniqueYellow absolute min-h-[50vh] h-auto -bottom-[14.3vh] flex flex-col md:flex-row gap-6 md:gap-[2vw]">
             <div className="absolute h-[70%] left-[5vw] border border-l border-uniqueBrown"></div>
             <div className="w-[90%]">
               <p className="  tracking-widest text-uniqueBrown font-bold">Experts Since 1990</p>
@@ -70,20 +72,20 @@ function Home() {
           <div className="absolute text-uniqueBrown font-bold right-4 bottom-[18vh]"><p className=" -rotate-90 flex items-center gap-[1vw] "> <IconArrowDownBar className=" rotate-90 text-uniqueBrown" />Scroll Down To Explore</p></div>
 
 
-          <video className="video -mt-40 md:mt-0" src={vid} autoPlay loop muted >
+          <video className="video -mt-40 md:mt-0" src={vid} loop muted playsInline preload="none" aria-hidden="true">
 
           </video>
 
         </div>
         <div className="relative h-full ">
           <div className="absolute z-20 h-[94%] left-[5vw] top-[30vh] border border-l border-uniqueYellow "></div>
-          <div className=" font-bold text-white text-5xl absolute z-20 capitalize top-[20vh] left-[10vw] bg-uniqueBrown px-[2vw] py-[2vh]"><span className=" font-normal text-uniqueYellow text-2xl ">We are</span> Passionate Experts, Driven by Excellence.</div>
-          <div className="relative bg-white flex justify-around pt-[50vh]">
-            <div className="image pl-[5vw]">
+          <div className="font-bold text-white text-2xl sm:text-3xl lg:text-5xl absolute z-20 capitalize top-[12vh] md:top-[20vh] left-5 md:left-[10vw] right-5 md:right-auto bg-uniqueBrown px-4 md:px-[2vw] py-3 md:py-[2vh]"><span className=" font-normal text-uniqueYellow text-2xl ">We are</span> Passionate Experts, Driven by Excellence.</div>
+          <div className="relative bg-white flex flex-col md:flex-row items-center gap-8 justify-around pt-[30vh] md:pt-[50vh]">
+            <div className="image w-full px-5 md:pl-[5vw] md:px-0">
               <img src={img} alt="" width={550}/>
             </div>
             <div className="absolute z-20 h-[60%] left-[44vw] border border-l border-uniqueBrown"></div>
-            <div className=" w-[50vw]">
+            <div className="w-full px-5 md:w-[50vw] md:px-0">
               <h1 className=" my-[5vh] text-3xl font-bold"> We Don’t Just Build Structures. We Craft Legacies.</h1>
               <p className=" font-bold ">
                 Since 1990, SATYAM CONSTRUCTION has been a trusted name in the construction industry, delivering over 30 years of expertise. As a comprehensive construction management team and general contractor, they specialize in building all types of structures, offering services in planning, estimation, valuation, and interior/exterior design.</p>
@@ -104,7 +106,7 @@ function Home() {
               onSubmit={sendEmail}
               className='letscolab flex flex-col gap-4  rounded-bl-3xl rounded-br-3xl bg-uniqueYellow h-[65vh] justify-center pl-[40vw] pr-[10vw] shadow-md border-black border-2 relative'
             >
-              <div className="text absolute left-5 md:left-20 w-[30vw] text-sm md:text-3xl leading-5 md:leading-[7vh]">
+              <div className="relative mb-4 w-full text-sm leading-6 md:absolute md:mb-0 md:left-20 md:w-[30vw] md:text-3xl md:leading-[7vh]">
                 <span className='bg-white p-[0.3rem]'>
                   Let's get this conversation started!
                 </span>
@@ -114,28 +116,32 @@ function Home() {
                 type="text"
                 name="from_name"
                 placeholder='Your Name'
-                className=' bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+                className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl lg:text-2xl placeholder:text-[#6e3636] min-h-12 rounded-md px-4 py-3'
                 onChange={(e) => setName(e.target.value)}
+                required
+                autoComplete="name"
               />
               <input
                 type="email"
                 name="from_email"
                 placeholder='Your Email'
-                className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[7vh] rounded-md px-[2vw] py-[2vh]'
+                className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl lg:text-2xl placeholder:text-[#6e3636] min-h-12 rounded-md px-4 py-3'
                 onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
               />
               <textarea
                 name="message"
                 placeholder='Message'
-                className='bg-yellow-500 text-2xl placeholder:text-[#6e3636] h-[20vh] rounded-md px-[2vw] py-[2vh]'
+                required
+                className='w-full min-w-0 bg-yellow-500 text-base sm:text-xl lg:text-2xl placeholder:text-[#6e3636] min-h-32 rounded-md px-4 py-3'
               />
               <button
                 type="submit"
-                className='w-full border-2 px-[2vw] py-[4vh] h-[7vh] flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
-                onClick={notify}
-                disabled={!name || !email}
+                className='w-full min-h-12 border-2 px-4 py-3 flex justify-between items-center rounded-md border-yellow-500 hover:bg-yellow-500 transition-all ease-in-out hover:text-white disabled:hover:bg-transparent disabled:hover:text-black'
+                disabled={!name || !email || isSending}
               >
-                <div className="text-2xl">Submit</div>
+                <div className="text-2xl">{isSending ? "Sending..." : "Submit"}</div>
                 <div className='text-2xl'>
                   <FiChevronsRight />
                 </div>
@@ -145,7 +151,7 @@ function Home() {
           <div className=" relative  my-[10vh] flex flex-col items-center">
             <h1 className='  text-3xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Customer Support</h1>
             <div className='flex flex-col md:flex-row gap-5 '>
-              <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+              <div className='flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
                 <IconPhone className='text-base sm:text-3xl' />
 
                 <h1 className='text-base sm:text-3xl'>Phone</h1>
@@ -153,7 +159,7 @@ function Home() {
 
 
               </div>
-              <div className=' flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+              <div className=' flex flex-col justify-center gap-4 items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
                 <IconMail className='text-base sm:text-3xl' />
 
                 <h1 className='text-base sm:text-3xl'>Email</h1>
@@ -161,14 +167,14 @@ function Home() {
 
 
               </div>
-              <div className=' flex flex-col justify-center gap-4  items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-[55vw] h-[20vh] md:w-[26.5vw] md:h-[40vh] shadow-lg shadow-gray-500 '>
+              <div className=' flex flex-col justify-center gap-4  items-center   bg-uniqueYellow border-black border-2 rounded-br-lg rounded-bl-lg w-full max-w-md min-h-40 h-auto px-4 py-6 md:w-[26.5vw] md:max-w-none md:min-h-0 md:h-[40vh] shadow-lg shadow-gray-500 '>
                 <IconMapPin className='text-base sm:text-3xl' />
                 <h1 className='text-base sm:text-3xl'>Address</h1>
                 <p className='bg-white px-4 font-bold w-full text-center'>SH 8, Jagat Berh, Barabalidanga, Bardhaman, West Bengal 713103</p>
               </div>
             </div>
             <h1 className='  text-3xl font-medium underline underline-offset-[2vh] decoration-uniqueYellow cursor-default my-[10vh]'>Google Maps</h1>
-            <div className='mt-[5vh]'><iframe className=" w-[80vw] h-[35vh] sm:h-[50vh]" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.505052243271!2d87.855727!3d23.2247016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8492465c7b385%3A0x97ec3993ec1b9bd0!2sSATYAM%20CONSTRUCTION!5e0!3m2!1sen!2sin!4v1724657146582!5m2!1sen!2sin" loading="lazy" ></iframe></div>
+            <div className='mt-[5vh]'><iframe className="w-full max-w-[80vw] h-[35vh] sm:h-[50vh]" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.505052243271!2d87.855727!3d23.2247016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8492465c7b385%3A0x97ec3993ec1b9bd0!2sSATYAM%20CONSTRUCTION!5e0!3m2!1sen!2sin!4v1724657146582!5m2!1sen!2sin" loading="lazy" ></iframe></div>
           </div>
         </div>
       </div>

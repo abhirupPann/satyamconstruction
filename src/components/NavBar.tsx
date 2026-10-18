@@ -1,166 +1,88 @@
-import { SquigglyUnderline } from "../UI/SquigglyUnderline"
-import Headroom from "react-headroom"
-import logo from "../assets/logo/satyamconslogo.png"
-import { NavLink } from "react-router-dom"
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react";
+import Headroom from "react-headroom";
+import { Link, NavLink } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import logo from "../assets/logo/satyamconslogo.png";
+import { SquigglyUnderline } from "../UI/SquigglyUnderline";
+
+const navigation = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/solutions" },
+  { name: "Process", path: "/process" },
+  { name: "Projects", path: "/projects" },
+  { name: "About Us", path: "/aboutus" },
+];
 
 function NavBar() {
-  const [scrollPosition, setScrollposition] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleScroll = () => setScrollposition(window.scrollY);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const handleScroll = () => setScrollPosition(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = isMenuOpen ? "hidden" : previousOverflow;
+    return () => { document.body.style.overflow = previousOverflow; };
   }, [isMenuOpen]);
 
-  const menuVariants = {
-    closed: {
-      x: "100%",
-      transition: { type: "spring", stiffness: 300, damping: 40 }
-    },
-    open: {
-      x: 0,
-      transition: { type: "spring", stiffness: 300, damping: 40 }
-    }
-  };
-
-  const menuItemVariants = {
-    closed: { x: 50, opacity: 0 },
-    open: (i: any) => ({
-      x: 0,
-      opacity: 1,
-      transition: { delay: i * 0.1, type: "spring", stiffness: 300, damping: 24 }
-    })
-  };
-
-  const handleLinkClick = () => setIsMenuOpen(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <div>
+    <header className="relative z-50 w-full">
       <Headroom
-        style={{ transition: "all .5s ease-in-out" }}
-        className={`z-40 hidden md:flex gap-[14vw] items-center w-full font-Fjalla tracking-wider absolute top-[6vh] bg-transparent`}
+        style={{ width: "100%", transition: "all .35s ease-in-out" }}
+        wrapperStyle={{ width: "100%", position: "absolute", top: 0, left: 0, right: 0, zIndex: 50 }}
+        className="hidden md:flex absolute top-0 left-0 right-0 z-50 w-full min-w-full items-center font-Fjalla tracking-wider"
       >
-        <div className={`px-[5vw] ${scrollPosition === 0 ? "bg-transparent" : "backdrop-blur-3xl bg-black/50"}`}>
-          <div className="flex gap-[5vw] lg:gap-[14vw] items-center w-full">
-            <img src={logo} alt="Logo" width={150} />
+        <div className={`relative left-1/2 w-screen max-w-none -translate-x-1/2 px-[5vw] py-3 ${
+          scrollPosition > 20 ? "bg-black/80 backdrop-blur-xl" : "bg-black/20"
+        }`}>
+          <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between gap-8">
+            <Link to="/" aria-label="Satyam Construction home">
+              <img src={logo} alt="Satyam Construction" width={130} />
+            </Link>
             <SquigglyUnderline />
-            <NavLink to="/bookacall">
-              <div className="bg-white text-[10px] lg:text-[13px] lg:text-md w-[10vw] lg:w-[5.6vw] px-4 py-3 lg:px-2.5 lg:py-2 rounded-md cursor-pointer hover:bg-uniqueYellow hover:text-white transition-all duration-300">
-                Book a call
-              </div>
-            </NavLink>
+            <Link to="/bookacall" className="whitespace-nowrap rounded-md bg-white px-4 py-3 text-sm text-black transition hover:bg-uniqueYellow hover:text-white">
+              Book a call
+            </Link>
           </div>
         </div>
       </Headroom>
 
-      {/* Mobile Header */}
-      <div className="md:hidden font-Fjalla flex items-center justify-between w-full py-4 px-5">
-      <img src={logo} alt="Logo" width={80} className=" z-50"/> 
-
-        {/* Hamburger Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="relative w-10 h-10 flex flex-col items-center justify-center z-50"
-          aria-label="Toggle menu"
-        >
-          <motion.span
-            animate={isMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-7 h-0.5 bg-white mb-1.5 block origin-center"
-          />
-          <motion.span
-            animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: "1.75rem" }}
-            transition={{ duration: 0.2 }}
-            className="h-0.5 bg-white mb-1.5 block"
-          />
-          <motion.span
-            animate={isMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-7 h-0.5 bg-white block origin-center"
-          />
+      <div className="flex w-full items-center justify-between bg-black/30 px-5 py-4 font-Fjalla md:hidden">
+        <Link to="/" onClick={closeMenu} aria-label="Satyam Construction home">
+          <img src={logo} alt="Satyam Construction" width={90} />
+        </Link>
+        <button type="button" onClick={() => setIsMenuOpen((open) => !open)} className="relative z-[60] flex h-10 w-10 flex-col items-center justify-center" aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen} aria-controls="mobile-navigation">
+          <motion.span animate={isMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="mb-1.5 block h-0.5 w-7 origin-center bg-white" />
+          <motion.span animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: "1.75rem" }} className="mb-1.5 block h-0.5 bg-white" />
+          <motion.span animate={isMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="block h-0.5 w-7 origin-center bg-white" />
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
-          <div className="font-Fjalla">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
-              onClick={() => setIsMenuOpen(false)}
-            />
-
-            {/* Menu Panel */}
-            <motion.div
-              variants={menuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              className="fixed top-0 right-0 h-full w-[80vw] max-w-sm bg-gradient-to-br from-gray-900 via-black to-gray-900 shadow-2xl z-50 md:hidden overflow-y-auto"
-            >
-              <div className="flex flex-col h-full pt-24 px-8">
-                <nav className="flex flex-col gap-6">
-                  {["Home", "Solutions", "Process", "Projects", "About Us"].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      custom={i}
-                      variants={menuItemVariants}
-                      initial="closed"
-                      animate="open"
-                    >
-                      <a
-                        href={`${item == "Home"? "" :item.toLowerCase().split(' ').join('')}`}
-                        onClick={handleLinkClick}
-                        className="text-white text-2xl font-semibold hover:text-yellow-400 transition-colors duration-300 block py-2"
-                      >
-                        {item}
-                      </a>
-                    </motion.div>
-                  ))}
-
-                  <motion.div custom={5} variants={menuItemVariants} initial="closed" animate="open" className="mt-8">
-                    <button
-                      onClick={handleLinkClick}
-                      className="w-full bg-white text-black px-6 py-3 rounded-md text-center font-semibold hover:bg-yellow-400 hover:text-white transition-all duration-300"
-                    >
-                      Book a call
-                    </button>
-                  </motion.div>
-                </nav>
-
-                <motion.div
-                  custom={6}
-                  variants={menuItemVariants}
-                  initial="closed"
-                  animate="open"
-                  className="mt-auto mb-8"
-                >
-                  <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6" />
-                  <p className="text-white/60 text-sm text-center">© 2024 Satyam Consulting</p>
+          <>
+            <motion.button type="button" aria-label="Close navigation menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden" onClick={closeMenu} />
+            <motion.nav id="mobile-navigation" aria-label="Mobile navigation" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 300, damping: 35 }} className="fixed right-0 top-0 z-50 flex h-full w-[82vw] max-w-sm flex-col gap-6 overflow-y-auto bg-gradient-to-br from-gray-900 via-black to-gray-900 px-8 pb-8 pt-24 md:hidden">
+              {navigation.map((item, index) => (
+                <motion.div key={item.path} initial={{ x: 25, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: index * 0.05 }}>
+                  <NavLink to={item.path} end={item.path === "/"} onClick={closeMenu} className={({ isActive }) => `block py-2 text-2xl font-semibold transition-colors ${isActive ? "text-yellow-400" : "text-white hover:text-yellow-400"}`}>
+                    {item.name}
+                  </NavLink>
                 </motion.div>
-              </div>
-            </motion.div>
-          </div>
+              ))}
+              <Link to="/bookacall" onClick={closeMenu} className="mt-3 rounded-md bg-white px-6 py-3 text-center font-semibold text-black transition hover:bg-yellow-400">Book a call</Link>
+              <p className="mt-auto pt-8 text-center text-sm text-white/60">© {new Date().getFullYear()} Satyam Construction</p>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
-    </div>
+    </header>
   );
 }
 

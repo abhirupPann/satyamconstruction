@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -11,20 +11,18 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -33,10 +31,30 @@
   }
 }
 
-.card {
-  padding: 2em;
+.card { padding: 2em; }
+.read-the-docs { color: #888; }
+
+/* Global safety rails: preserve the design while preventing viewport overflow. */
+*, *::before, *::after { box-sizing: border-box; }
+html { width: 100%; max-width: 100%; overflow-x: clip; }
+body { width: 100%; min-width: 320px; max-width: 100%; margin: 0; overflow-x: clip; }
+img, picture, svg, canvas, video { max-width: 100%; }
+img, video { height: auto; }
+video { display: block; }
+iframe { max-width: 100%; }
+input, textarea, select, button { max-width: 100%; }
+#root { overflow-wrap: break-word; }
+
+@media (max-width: 640px) {
+  .card { padding: 1rem; }
+  h1 { overflow-wrap: anywhere; }
 }
 
-.read-the-docs {
-  color: #888;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
